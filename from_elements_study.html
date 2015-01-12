@@ -1,0 +1,56 @@
+<html ng-app="formElements">
+
+<head>
+    <title>Learning form elements</title>
+    <script src="angular.js"></script>
+</head>
+
+<body>
+
+    <form ng-submit="requestFunding()" ng-controller="formElementController" >
+        {{formElementsData.message}}
+        <input type="checkbox" ng-model="formElementsData.youCheckedIt" ng-change="changedAlert()" />
+        <br/>
+        <input type="label" ng-model="formElementsData.checkedMessage"/>
+        <br/><br/><br/>
+        Starting: <input ng-model="formElementsData.startingEstimate">
+		Recommendation: {{formElementsData.needed}}
+		<button>Fund my Startup!</button>
+		<button ng-click="reset()">Reset</button>
+    </form>
+</body>
+<script>
+var formElementsModel = angular.module('formElements', [], function() {});
+
+formElementsModel.controller('formElementController', function($scope) {
+    var formElementsData = {};
+    formElementsData.youCheckedIt = false;
+    formElementsData.message = "Check data....";
+    formElementsData.checkedMessage = "Not yet checked..";
+    formElementsData.startingEstimate = 0;
+
+    $scope.changedAlert = function() {
+        if (formElementsData.youCheckedIt === true)
+            formElementsData.checkedMessage = "You have checked..";
+        else
+            formElementsData.checkedMessage = "Not yet checked..";
+    };
+    computeNeeded = function() {
+    	formElementsData.needed = formElementsData.startingEstimate * 10;
+    };
+    $scope.$watch('formElementsData.startingEstimate', computeNeeded);
+
+    $scope.requestFunding = function(){
+    	alert("Please do the necessary jobs.......");
+    };
+
+    $scope.reset = function(){
+    	formElementsData.startingEstimate = 0;
+    };
+
+    $scope.formElementsData = formElementsData;
+
+});
+</script>
+
+</html>

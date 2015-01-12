@@ -1,0 +1,30 @@
+<html ng-app="modelEx">
+	<head>
+<title>Model example</title>
+</head>
+<body ng-controller="modelController">
+	<p>
+		{{messages.someText}}{{messages.testMsg}}
+	</p>
+	<p ng-bind="messages.someText"></p>
+	<input ng-model="messages.someText"></input>
+	<input type="checkbox" ng-model="messages.showMsg"></input>
+	Starting: <input ng-change="computNeeded()" ng-model="funding.startingEstimate">
+	Recommendation: {{funding.needed}}
+	<script src="angular.js"></script>
+</body>
+<script>
+	var modelExModule = angular.module('modelEx',[], function(){});
+	
+	modelExModule.controller('modelController', function($scope){
+		var messages = {};
+		var funding = {};
+		messages.someText = 'Journey started..........';
+		messages.testMsg = 'and will continue..................for a while';
+		messages.showMsg = true;
+		$scope.messages = messages;
+		funding.needed = true;
+		$scope.funding = funding;
+	});
+</script>
+</html>

@@ -1,0 +1,14 @@
+<html ng-app='helloApp'>
+	<head>
+		<script src="angular.js"></script>
+		<script src="controller.js"></script>
+
+	</head>
+	<body>
+		<div data-ng-controller="helloController">
+			<input ng-model='greeting.text'>
+			<input ng-model='greeting.from'>
+			<p>{{greeting.text}} world from {{greeting.from}}</p>
+		</div>
+	</body>
+</html>
