@@ -1,0 +1,81 @@
+<html ng-app="errorsAndWarnings">
+
+<head>
+    <title>Errors and Warnings</title>
+    <script src="angular.js"></script>
+    <style type="text/css">
+    .error {
+        background-color: red;
+    }
+    .warning {
+        background-color: yellow;
+    }
+    .selected {
+        background-color: lightgreen;
+    }
+    </style>
+</head>
+
+<body>
+    <div ng-controller="headerController">
+        <div ng-class='{error: isError, warning: isWarning}'>{{messageText}}</div>
+
+        <button ng-click="showError()">Simulate Error</button>
+        <button ng-click="showWarning()">Simulate Warning</button>
+        <button ng-click="reomoveAllSimulations()">Remove Simulatation messages</button>
+    </div>
+
+    <table ng-controller="restaurantController">
+        <tr ng-repeat="restaurant in directory" ng-click="selectRestaurant($index)" ng-class="{selected: $index == selectedRow}">
+            <td>{{restaurant.name}}</td>
+            <td>{{restaurant.cuisine}}</td>
+        </tr>
+    </table>
+
+</body>
+<script type="text/javascript">
+var eandw = angular.module("errorsAndWarnings", [], function() {});
+
+eandw.controller('headerController', function($scope) {
+    $scope.isError = false;
+    $scope.isWarning = false;
+    $scope.showError = function() {
+        $scope.messageText = 'This is an error!';
+        $scope.isError = true;
+        $scope.isWarning = false;
+    };
+    
+    $scope.showWarning = function() {
+        $scope.messageText = 'Just a warning. Please carry on.';
+        $scope.isWarning = true;
+        $scope.isError = false;
+    };
+
+    $scope.reomoveAllSimulations = function(){
+    	$scope.messageText = '';
+    	$scope.iswarning = false;
+    	$scope.isError = false;
+    };
+
+});
+
+eandw.controller("restaurantController", function($scope) {
+    $scope.directory = [{
+        name: 'The Handsome Heifer',
+        cuisine: 'BBQ'
+    }, {
+        name: "Green's Green Greens",
+        cuisine: 'Salads'
+    }, {
+        name: 'House of Fine Fish',
+        cuisine: 'Seafood'
+    }];
+
+    $scope.selectRestaurant = function(row) {
+        $scope.selectedRow = row;
+    };
+
+});
+</script>
+
+</html>
